@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+</article>
+
+{% if page.toc %}
+<aside class="toc-sidebar" id="toc-sidebar">
+  <p class="toc-title">📑 目录</p>
+</aside>
+<script>
+(function() {
+  var toc = document.getElementById('toc-sidebar');
+  var headings = document.querySelectorAll('.post-content h2, .post-content h3');
+  if (headings.length === 0) { toc.style.display = 'none'; return; }
+  var ul = document.createElement('ul');
+  headings.forEach(function(h) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    var id = h.textContent.trim().replace(/\s+/g, '-').toLowerCase();
+    h.id = id;
+    a.href = '#' + id;
+    a.textContent = h.textContent;
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    if (h.tagName === 'H3') { li.style.paddingLeft = '16px'; }
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+  toc.appendChild(ul);
+})();
+</script>
+{% endif %}

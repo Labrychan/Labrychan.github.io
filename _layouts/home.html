@@ -1,0 +1,97 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <!-- 区块1：个人介绍（独占一行） -->
+  <div class="home-card intro-card">
+    <div class="intro-row">
+      <img src="/images/Labrychan.jpg" alt="头像" class="intro-avatar">
+      <div class="intro-text">
+        <h2>👋 欢迎来到我的博客</h2>
+        <p>Labrychanです、( ＞◡❛)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 下方左右两栏 -->
+  <div class="home-row">
+    
+    <!-- 左栏：文章列表 -->
+    <div class="home-col home-col-left">
+      {%- if site.posts.size > 0 -%}
+      <div class="home-card posts-card">
+        <h2 class="post-list-heading">{{ page.list_title | default: "最近文章" }}</h2>
+        <ul class="post-list">
+          {%- for post in site.posts limit:2 -%}
+          <li>
+            <a class="post-card-link" href="{{ post.url }}">
+              {% if post.image %}
+              <div class="post-card-bg" style="background-image: url('{{ post.image }}');">
+              {% else %}
+              <div class="post-card-bg post-card-no-image">
+              {% endif %}
+                <div class="post-card-overlay">
+                  <span class="post-card-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+                  <h3 class="post-card-title">{{ post.title | escape }}</h3>
+                </div>
+              </div>
+            </a>
+          </li>
+          {%- endfor -%}
+        </ul>
+        <span class="view-all-wrapper">
+          <a class="view-all" href="/blog/">查看所有文章 →</a>
+          <span class="view-all-tooltip">共 {{ site.posts.size }} 篇文章，点击查看全部</span>
+        </span>
+      </div>
+      {%- endif -%}
+    </div>
+
+    <!-- 右栏：音乐 + Bangumi 堆叠 -->
+    <div class="home-col home-col-right">
+      <div class="home-card music-card">
+        <h2>🎵 音乐</h2>
+        <div id="aplayer"></div>
+      </div>
+      {% include bangumi-card.html %}
+      {% include codeforces-card.html %}
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+  const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    mini: false, // 迷你模式
+    autoplay: false, // 自动播放
+    theme: '#b7daff', // 主题色
+    loop: 'all', // 列表循环
+    order: 'random', // 随机播放
+    preload: 'auto',
+    volume: 0.7,
+    mutex: true, // 互斥，避免同时播放多个
+    listFolded: false, // 列表默认折叠
+    listMaxHeight: 90,
+    audio: [
+      {
+        name: '夏霞',      // 替换为你的歌曲名
+        artist: '可惜夜',       // 替换为艺术家
+        url: '/music/夏霞.mp3', // 替换为你的音乐链接
+        cover: '/music/cover/夏霞.jpg' // 替换为封面图链接（可选）
+      },
+      // 你可以继续添加更多歌曲对象
+      // {
+      //   name: '第二首歌',
+      //   artist: '另一位艺术家',
+      //   url: 'https://example.com/music.mp3',
+      //   cover: 'https://example.com/cover.jpg'
+      // }
+    ]
+  });
+</script>

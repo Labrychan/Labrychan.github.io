@@ -1,0 +1,50 @@
+<div class="home-card cf-card">
+  <h2>💻 Codeforces</h2>
+  <div class="cf-info" id="cf-info">
+    <p>加载中...</p>
+  </div>
+</div>
+
+<script>
+(async function() {
+  var handle = 'Labrychan';  // ← 改成你的 Codeforces handle
+  var container = document.getElementById('cf-info');
+
+  try {
+    var res = await fetch('https://codeforces.com/api/user.info?handles=' + handle);
+    var data = await res.json();
+
+    if (data.status !== 'OK') throw new Error('用户不存在');
+
+    var user = data.result[0];
+    var rating = user.rating || '未参与';
+    var rank = user.rank || '暂无段位';
+    var maxRating = user.maxRating || 'N/A';
+    var color = getColor(rating);
+
+    container.innerHTML = 
+      '<p class="cf-handle">🔗 <a href="https://codeforces.com/profile/' + handle + '" target="_blank" style="color:' + color + ';font-weight:700;">' + handle + '</a></p>' +
+      '<p class="cf-rating">📊 Rating: <strong style="color:' + color + ';">' + rating + '</strong></p>' +
+      '<p class="cf-max">📈 最高: <strong>' + maxRating + '</strong></p>' +
+      '<p class="cf-rank">🏆 段位: <strong style="color:' + color + ';">' + rank + '</strong></p>';
+
+  } catch(e) {
+    container.innerHTML = '<p>加载失败</p>';
+    console.error(e);
+  }
+
+  function getColor(r) {
+    if (r >= 3000) return '#000000';
+    if (r >= 2600) return '#FF0000';
+    if (r >= 2400) return '#FF0000';
+    if (r >= 2300) return '#FF8C00';
+    if (r >= 2200) return '#FF8C00';
+    if (r >= 1900) return '#FF00FF';
+    if (r >= 1600) return '#0000FF';
+    if (r >= 1400) return '#03A89E';
+    if (r >= 1200) return '#008000';
+    if (r >= 1) return '#808080';
+    return '#000000';
+  }
+})();
+</script>
