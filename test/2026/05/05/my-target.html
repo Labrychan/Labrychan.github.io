@@ -102,7 +102,7 @@
             .staticrypt-content {
                 height: 100%;
                 margin-bottom: 1em;
-                background: #76B852;
+                background: transparent;
                 font-family: "Arial", sans-serif;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
@@ -888,5 +888,30 @@ exports.init = init;
                 }
             });
         </script>
+
+        <script>
+        (function() {
+        var month = new Date().getMonth() + 1;
+        var hour = new Date().getHours();
+        var bgImage;
+        if (month >= 3 && month <= 5) {
+            bgImage = '/images/haru-bg.png';
+        } else if (month >= 6 && month <= 8) {
+            if (hour >= 5 && hour < 24) {
+            bgImage = '/images/natsu-am-bg.jpg';
+            } else {
+            bgImage = '/images/natsu-pm-bg.jpg';
+            }
+        } else if (month >= 9 && month <= 11) {
+            bgImage = '/images/aki-bg.png';
+        } else {
+            bgImage = '/images/fuyu-bg.jpg';
+        }
+        if (bgImage) {
+            document.querySelector('.staticrypt-content').style.background = 'url(' + bgImage + ') center/cover no-repeat fixed';
+        }
+        })();
+        </script>
+
     </body>
 </html>
