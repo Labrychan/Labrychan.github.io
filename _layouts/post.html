@@ -25,6 +25,26 @@ layout: default
 
 </article>
 
+{% if page.comments %}
+<div class="comments-section">
+  <script src="https://giscus.app/client.js"
+          data-repo="Labrychan/Labrychan.github.io"
+          data-repo-id="R_kgDOTTSt7A"
+          data-category="General"
+          data-category-id="DIC_kwDOTTSt7M4DBSid"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
+{% endif %}
+
 {% if page.toc %}
 <aside class="toc-sidebar" id="toc-sidebar">
   <p class="toc-title">📑 目录</p>

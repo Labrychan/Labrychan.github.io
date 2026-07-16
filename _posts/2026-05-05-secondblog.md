@@ -1,4 +1,5 @@
 ---
+comments: true
 toc: true
 layout: post
 title: "Hello,World"
